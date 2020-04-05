@@ -45,7 +45,6 @@ export class BlobsController {
     container: string,
     filename: string,
   ) {
-    console.log(account, container, filename);
     try {
       const s3Service = S3BlobService.getConfigService().service();
       const reconstitutedFilename = filename.replace(" ", "\\ ");

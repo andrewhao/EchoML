@@ -29,12 +29,12 @@ export class S3BlobFile implements IAzureBlobFile {
 
   public static async getDownloadURL(
     s3Service: S3Type,
-    container: string,
-    filename: string,
+    bucket: string,
+    key: string,
   ): Promise<string> {
     return s3Service.getSignedUrlPromise("getObject", {
-      Bucket: container,
-      Key: filename,
+      Bucket: bucket,
+      Key: key,
     });
   }
   public name: string;
@@ -61,7 +61,7 @@ export class S3BlobFile implements IAzureBlobFile {
   }
 
   public async getLabels(): Promise<ILabel[]> {
-    const storageAccount = this.container().service().name;
+    const storageAccount = this.container().account;
     const container = this.container().name;
     return Label.getLabels(storageAccount, container, this.name);
   }
